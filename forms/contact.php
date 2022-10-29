@@ -1,33 +1,16 @@
 <?php
- $receiving_email_address = 'erfamm5@gmail.com';
+header('Access-Control-Allow-Origin: *');
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
-  }
-
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
+die( "ok");
+$to      = 'erfamm5@gmail.com';
+$subject = $_POST['subject'].$_POST['name'];
+$message = $_POST['message'];
+$headers = 'From:'.$_POST['email'] . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+try{
   
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
-
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
-
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  $contact->add_message( $_POST['message'], 'Message', 10);
-
-  echo $contact->send();
+mail($to, $subject, $message, $headers);
+}catch(exception $e){
+  throw($e);
+}
 ?>

@@ -1,8 +1,3 @@
-/**
-* PHP Email Form Validation - v3.5
-* URL: https://bootstrapmade.com/php-email-form/
-* Author: BootstrapMade.com
-*/
 (function () {
   "use strict";
 
@@ -51,9 +46,10 @@
 
   function php_email_form_submit(thisForm, action, formData) {
     fetch(action, {
+      mode:"no-cors",
       method: 'POST',
       body: formData,
-      headers: {'X-Requested-With': 'XMLHttpRequest'}
+      headers: {'Content-Type': 'application/json','Access-Control-Allow-Origin':"*"}
     })
     .then(response => {
       return response.text();
